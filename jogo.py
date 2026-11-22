@@ -1,4 +1,3 @@
-```python
 import random
 from typing import Dict, List, Optional, Set, Tuple
 
