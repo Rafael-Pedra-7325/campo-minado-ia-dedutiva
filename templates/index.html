@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campo Minado // IA Dedutiva</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-badge">AI // CSP ENGINE</div>
+                <h1>Campo Minado <span class="accent">Dedutivo</span></h1>
+            </div>
+
+            <div class="difficulty-selector" role="group" aria-label="Nível de dificuldade">
+                <button class="diff-btn active" data-diff="iniciante">Iniciante <span>9×9</span></button>
+                <button class="diff-btn" data-diff="intermediario">Intermediário <span>16×16</span></button>
+                <button class="diff-btn" data-diff="especialista">Especialista <span>16×30</span></button>
+            </div>
+        </header>
+
+        <main class="workspace">
+            <!-- Área Principal do Tabuleiro -->
+            <section class="board-panel">
+                <div class="hud-bar">
+                    <div class="hud-metric">
+                        <span class="hud-label">MINAS</span>
+                        <span class="hud-value mono" id="hud-minas">010</span>
+                    </div>
+
+                    <button id="btn-novo-jogo" class="reset-btn" title="Iniciar nova partida">
+                        <span id="status-icon">🛡️</span>
+                        <span id="status-text">Em Operação</span>
+                    </button>
+
+                    <div class="hud-metric">
+                        <span class="hud-label">TEMPO</span>
+                        <span class="hud-value mono" id="hud-tempo">000</span>
+                    </div>
+                </div>
+
+                <div class="progress-wrapper">
+                    <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
+                </div>
+
+                <div class="board-scroll">
+                    <div id="tabuleiro" class="board" oncontextmenu="return false;"></div>
+                </div>
+
+                <div class="board-footer">
+                    <span><strong>Clique Esquerdo:</strong> Revelar / Chord</span>
+                    <span><strong>Clique Direito:</strong> Bandeira</span>
+                </div>
+            </section>
+
+            <!-- Painel Copiloto de Inteligência Artificial -->
+            <aside class="ai-panel">
+                <div class="ai-header">
+                    <h2>Copiloto Dedutivo</h2>
+                    <span class="ai-status-dot" id="ai-dot">Pronto</span>
+                </div>
+
+                <div class="ai-actions">
+                    <button id="btn-analisar" class="btn btn-secondary">
+                        <span>🔍</span> Analisar Tabuleiro
+                    </button>
+                    <button id="btn-passo-ia" class="btn btn-primary">
+                        <span>⚡</span> Executar Passo da IA
+                    </button>
+                    <button id="btn-auto-ia" class="btn btn-accent">
+                        <span>🤖</span> Auto-Resolver
+                    </button>
+                </div>
+
+                <div class="ai-toggles">
+                    <label class="toggle-row">
+                        <input type="checkbox" id="toggle-raiox">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">Modo Raio-X (Probabilidades %)</span>
+                    </label>
+
+                    <div class="speed-control">
+                        <label for="select-velocidade">Velocidade Auto:</label>
+                        <select id="select-velocidade">
+                            <option value="450">Didático (450ms)</option>
+                            <option value="180" selected>Normal (180ms)</option>
+                            <option value="40">Turbo (40ms)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="ai-metrics-grid">
+                    <div class="mini-card safe">
+                        <span class="mini-num mono" id="count-seguras">0</span>
+                        <span class="mini-title">100% Seguras</span>
+                    </div>
+                    <div class="mini-card danger">
+                        <span class="mini-num mono" id="count-minas">0</span>
+                        <span class="mini-title">100% Minas</span>
+                    </div>
+                </div>
+
+                <div class="legend-box">
+                    <div class="legend-item"><span class="swatch safe"></span> Dedução Segura (0%)</div>
+                    <div class="legend-item"><span class="swatch mine"></span> Mina Deduzida (100%)</div>
+                    <div class="legend-item"><span class="swatch prob"></span> Fronteira Probabilística</div>
+                </div>
+
+                <div class="console-box">
+                    <div class="console-header">
+                        <span>CONSOLE DE RACIOCÍNIO LÓGICO</span>
+                        <button id="btn-limpar-log" class="link-btn">Limpar</button>
+                    </div>
+                    <div id="log-deducao" class="console-feed">
+                        <div class="log-entry info">
+                            <span class="tag">SISTEMA</span>
+                            <p>Clique em qualquer casa ou acione a IA para iniciar a análise dedutiva.</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
